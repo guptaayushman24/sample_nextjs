@@ -3,11 +3,12 @@ import {prisma} from '../../lib/prisma'
 
 export default async function addUser(name:string){
     try{
-        await prisma.user.createMany({
+        const data = await prisma.user.createMany({
         data:{
             name:name
         }
     })
+    return data
     }
     catch(err){
         console.log(err);

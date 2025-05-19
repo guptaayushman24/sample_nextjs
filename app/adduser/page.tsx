@@ -5,6 +5,9 @@ export default function(){
     const [name,Setname] = useState('');
     async function addUserindb(){
             await addUser(name);
+            if (name){
+                alert(`User saved in db ${name}`)
+            }
         }
     return(
         <div>
