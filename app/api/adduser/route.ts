@@ -1,12 +1,12 @@
 import { NextResponse } from 'next/server';
-import {prisma} from '../../lib/prisma'
+import {prisma} from '../../../lib/prisma'
 
 export async function POST(req: Request) {
   try {
-    const { name } = await req.json();
+    const body = await req.json();
 
-    const data = await prisma.user.create({
-      data: { name },
+    const data = await prisma.user.createMany({
+      data: body.name
     });
 
     return NextResponse.json({ success: true, user: data });
