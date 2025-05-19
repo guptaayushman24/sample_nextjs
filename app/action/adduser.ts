@@ -3,7 +3,7 @@ import {prisma} from '../../lib/prisma'
 
 export default async function addUser(name:string){
     try{
-        const data = await prisma.user.createMany({
+        const data = await prisma.user.create({
         data:{
             name:name
         }
