@@ -1,17 +1,23 @@
-import { NextResponse } from 'next/server';
-import {prisma} from '../../../lib/prisma'
+import { NextRequest, NextResponse } from 'next/server';
+import { prisma } from '../../../lib/prisma'; // adjust if path differs
 
-export async function POST(req: Request) {
+export async function POST(req: NextRequest) {
   try {
     const body = await req.json();
 
-    const data = await prisma.user.createMany({
-      data: body.name
+    if (!body.name) {
+      return NextResponse.json({ error: 'Name is required' }, { status: 400 });
+    }
+
+    const user = await prisma.user.create({
+      data: {
+        name: body.name,
+      },
     });
 
-    return NextResponse.json({ success: true, user: data });
-  } catch (err) {
-    console.error(err);
-    return NextResponse.json({ success: false, error: 'Error adding user' }, { status: 500 });
+    return NextResponse.json(user, { status: 201 });
+  } catch (error) {
+    console.error('Error in /api/adduser:', error);
+    return NextResponse.json({ error: 'Internal Server Error' }, { status: 500 });
   }
 }
