@@ -1,7 +1,7 @@
 'use client'
 // import addUser from '../action/adduser'
 import { useState } from 'react'
-import { useRef } from 'react';
+import axios from 'axios';
 export default function(){
     const [name,Setname] = useState('');
     // async function addUserindb(){
@@ -12,16 +12,10 @@ export default function(){
     //     }
      async function addUserToDb() {
     try {
-      const res = await fetch('/api/adduser', {
-        method: 'POST',
-        headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({ name }),
-      });
-
-      const data = await res.json();
-
-      if (data.success) {
-        alert(`User saved in DB: ${data.user.name}`);
+      
+      const result = await axios.post('api/adduser');
+      if (result){
+        alert(`User saved in DB: ${name}`);
       } else {
         alert('Failed to save user');
       }
