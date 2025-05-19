@@ -1,8 +1,7 @@
 'use client'
-import addUser from '../action/adduser'
+// import addUser from '../action/adduser'
 import { useState } from 'react'
 import { useRef } from 'react';
-const formRef = useRef<HTMLFormElement>(null);
 export default function(){
     const [name,Setname] = useState('');
     // async function addUserindb(){
